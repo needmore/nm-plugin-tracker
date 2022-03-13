@@ -90,7 +90,7 @@ class Nm_Plugin_Tracker_Settings {
     function admin_head() {
 ?>
         <style>
-            .settings_page_plugin_audit label { display:inline-block; width: 150px; }
+            .settings_page_plugin_tracker label { display:inline-block; width: 150px; }
         </style>
         <?php 
         // Plugin styles
@@ -162,8 +162,8 @@ class Nm_Plugin_Tracker_Settings {
         wp_register_script( $handle, $src, $deps, $ver, $in_footer );
 
         $translation_array = array(
-            'Saved'     => __( 'Saved', 'plugin_auditor' ),
-            'Not saved' => __( 'Not saved', 'plugin_auditor' ),
+            'Saved'     => __( 'Saved', 'plugin_tracker' ),
+            'Not saved' => __( 'Not saved', 'plugin_tracker' ),
             'url'       => admin_url( 'admin-ajax.php'),
             'pluginUrl' => plugins_url()
             );
@@ -206,12 +206,12 @@ class Nm_Plugin_Tracker_Settings {
     function render() {
         global $wp_meta_boxes, $wpdb;
 
-        $table_name = $wpdb->prefix . 'plugin_audit';
+        $table_name = $wpdb->prefix . 'plugin_tracker';
 
         /* Query to select the entries that must be displayed in the table */
         $logs = $wpdb->get_results("SELECT * FROM $table_name WHERE status = 1 AND plugin_path <> 'nm-plugin-tracker/nm-plugin-tracker.php' ORDER BY `timestamp` DESC");
 
-        /* This query let us know if the date of the plugins are the same of the plugin auditor. If true, the user will be displayed as "Unkown" */
+        /* This query let us know if the date of the plugins are the same of the plugin tracker. If true, the user will be displayed as "Unkown" */
         $query_date = $wpdb->get_var( "SELECT `timestamp` FROM $table_name WHERE plugin_path = 'nm-plugin-tracker/nm-plugin-tracker.php'" );
 
         if(isset($_POST['add_note'])) {
